@@ -1,9 +1,12 @@
 package hyunwook.co.kr.paging_livedata.room;
 
+import android.os.AsyncTask;
+import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import android.content.Context;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 import hyunwook.co.kr.paging_livedata.entity.Word;
 import hyunwook.co.kr.paging_livedata.entity.WordDao;
 
@@ -19,11 +22,43 @@ public abstract class WordRoomDatabase extends RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             WordRoomDatabase.class, "word_database")
+                            .addCallback(sRoomDatabaseCallback)
                             .fallbackToDestructiveMigration()
                             .build();
                 }
             }
         }
         return INSTANCE;
+    }
+
+    private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
+
+        @Override
+        public void onOpen(@NonNull SupportSQLiteDatabase db) {
+            super.onOpen(db);
+            new PopulateDBAsync(INSTANCE).execute();
+        }
+    };
+
+    private static class PopulateDBAsync extends AsyncTask<Void, Void, Void> {
+
+        private final WordDao mDao;
+        String[] words = {"dolphin", "crocodile", "cobra"};
+
+        PopulateDBAsync(WordRoomDatabase db) {
+            mDao = db.wordDao();
+        }
+
+        @Override
+        protected Void doInBackground(final Void... params) {
+            mDao.deleteAll();
+
+            for (int i = 0; i <= words.length -1; i++) {
+                Word word = new Word(words[i]);
+                mDao.insert(word);
+            }
+
+            return null;
+        }
     }
 }
