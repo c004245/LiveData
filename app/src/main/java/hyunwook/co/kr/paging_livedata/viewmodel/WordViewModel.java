@@ -1,8 +1,8 @@
 package hyunwook.co.kr.paging_livedata.viewmodel;
 
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
-import android.arch.lifecycle.LiveData;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import hyunwook.co.kr.paging_livedata.entity.Word;
 import hyunwook.co.kr.paging_livedata.repository.WordRepository;
 

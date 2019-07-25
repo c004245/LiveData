@@ -1,7 +1,7 @@
 package hyunwook.co.kr.paging_livedata.repository;
 
 import android.app.Application;
-import android.arch.lifecycle.LiveData;
+import androidx.lifecycle.LiveData;
 import android.os.AsyncTask;
 import hyunwook.co.kr.paging_livedata.entity.Word;
 import hyunwook.co.kr.paging_livedata.entity.WordDao;
