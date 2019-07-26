@@ -1,12 +1,12 @@
 package hyunwook.co.kr.paging_livedata;
 
+import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.*;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton floatingActionButton;
     private WordViewModel mWordViewModel;
 
+    private Aquarium myAquarium;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, NewWordActivity.class);
             startActivityForResult(intent, NEW_WORD_ACTIVITY_REQUEST_CODE);
         });
+
+        myAquarium = new Aquarium(this.getApplication(), getLifecycle());
     }
 
     @Override
@@ -61,6 +64,28 @@ public class MainActivity extends AppCompatActivity {
             mWordViewModel.insert(word);
         } else {
             Toast.makeText(getApplicationContext(), R.string.empty_not_saved, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public class Aquarium {
+
+        Aquarium(final Application app, Lifecycle lifecycle) {
+            lifecycle.addObserver(new LifecycleObserver() {
+                @OnLifecycleEvent(Lifecycle.Event.ON_START)
+                public void start() {
+                    Log.d("LifecycleListener", "LIGHT");
+                    Toast.makeText(app, "LIGHTS ON", Toast.LENGTH_LONG).show();
+                }
+
+                @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+                public void stop() {
+                    Log.d("LifecycleListener", "LiGHT OFF");
+                    Toast.makeText(app, "Lights off", Toast.LENGTH_LONG).show();
+                }
+
+
+            });
+
         }
     }
 

@@ -15,5 +15,5 @@ public class Person {
     @ColumnInfo(name = "last_name")
     private String lastName;
 
-    
+
 }
