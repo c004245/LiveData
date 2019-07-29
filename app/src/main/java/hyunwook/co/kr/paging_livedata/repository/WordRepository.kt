@@ -14,7 +14,7 @@ class WordRepository constructor(application: Application) {
     
     init {
         val db = WordRoomDatabase.getDatabase(application)
-        mWordDao = db.wordDao()
+        mWordDao = db!!.wordDao()
         mAllWords = mWordDao.getAllWords()
     }
 

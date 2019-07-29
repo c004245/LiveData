@@ -12,7 +12,7 @@ import hyunwook.co.kr.paging_livedata.entity.Word
 class WordListAdapter constructor(context: Context): RecyclerView.Adapter<WordListAdapter.WordViewHolder>() {
 
     private val mInflater = LayoutInflater.from(context)
-    private lateinit var mWords: List<Word>
+    private var mWords: List<Word>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordViewHolder {
         val itemView = mInflater.inflate(R.layout.recyclerview_item, parent, false)
@@ -21,7 +21,7 @@ class WordListAdapter constructor(context: Context): RecyclerView.Adapter<WordLi
 
     override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
         if (mWords != null) {
-            val current = mWords[position]
+            val current = mWords!![position]
             holder.wordItemView.text = current.word
         } else {
             holder.wordItemView.text = "No Word"
@@ -35,7 +35,7 @@ class WordListAdapter constructor(context: Context): RecyclerView.Adapter<WordLi
 
     override fun getItemCount() : Int {
         return if (mWords != null)
-            mWords.size
+            mWords!!.size
         else 0
     }
 
