@@ -12,7 +12,7 @@ class NewWordActivity : AppCompatActivity() {
     companion object {
         val EXTRA_REPLY = "com.example.android.roomwordsample.REPLY"
     }
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
