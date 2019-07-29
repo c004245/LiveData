@@ -5,10 +5,10 @@ import hyunwook.co.kr.paging_livedata.entity.User
 
 class UserProfileViewModel : ViewModel() {
 
-    private lateinit var userId: String
+    private var userId: String? = null
     private lateinit var user: User
 
-    fun init(userId: String) {
+    fun init(userId: String?) {
         this.userId = userId
     }
 
