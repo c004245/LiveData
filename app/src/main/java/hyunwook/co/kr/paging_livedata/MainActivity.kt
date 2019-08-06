@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity() {
 
         if (requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             val word = Word(data!!.getStringExtra(NewWordActivity.EXTRA_REPLY))
+            //Word word = new Word(data.getStringExtra(NewWordActivity.EXTRA_REPLY));
             mWordViewModel.insert(word)
         } else {
             Toast.makeText(applicationContext, R.string.empty_not_saved, Toast.LENGTH_LONG).show()
